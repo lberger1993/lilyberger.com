@@ -190,10 +190,10 @@ img {
  * Correct overflow not hidden in IE 9/10/11.
  */
 
-svg:not(:root) {
+/*svg:not(:root) {
   overflow: hidden;
 }
-
+*/
 /* Grouping content
    ========================================================================== */
 

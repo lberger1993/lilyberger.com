@@ -16,6 +16,16 @@ html {
     line-height: 1.4;
     font-family: 'Space Mono', monospace;
 }
+body {
+  font-family: 'Montserrat', sans-serif;
+
+}
+ul li{
+  font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+  padding:10px 20px 10px 20px;
+  text-transform: uppercase;
+}
 
 /*
  * Remove text-shadow in selection highlight:
@@ -38,6 +48,16 @@ html {
 /*
  * A better looking default horizontal rule
  */
+h1{
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+header{
+  margin-bottom:-50px;
+  padding:15px;
+  text-align: center;
+  color:rgba(0,0,0,0.54);
+}
 
 hr {
     display: block;
@@ -107,59 +127,62 @@ textarea {
   }
   body {
       background: #fff;
-      font-family: 'Open-Sans',sans-serif;
+      font-family: 'Montserrat', sans-serif;
 
   }
 
 #container{
   margin: 0 auto;
   position: relative;
-  width:800px;
+  width:100%;
   overflow: visible;
 }
-
+#container .svg {
+  margin: 0 auto;
+  left:2%;
+  right:2%;
+}
 
   .svg {
-    width:1000px;
-    height:500px;
+    width:100%;/*  width:800px;*/
+    height:400px;
     overflow: visible;
     position:absolute;
 }
-
-.grid .tick {
-    stroke: lightgrey;
-    opacity: 0.3;
-    shape-rendering: crispEdges;
+#title {
+  font-size:20px;
 }
-.grid path {
-      stroke-width: 0;
-}
-
 
 #tag {
+  font-family: 'Space Mono', monospace;
   color: white;
-  background: #FA283D;
-  width: 150px;
+  margin-top:15%;
+  background: black;
+  z-index: 10000;
+  width: 25%;
+  height:150px;
   position: absolute;
   display: none;
   padding:3px 6px;
-  margin-left: -80px;
-  font-size: 11px;
+  margin-left: 25%;
+  font-size: 12px;
+  text-align: center;
+  opacity:1;
 }
 
 
 
 #tag:before {
+  
   border: solid transparent;
   content: ' ';
   height: 0;
-  left: 50%;
+ 
   margin-left: -5px;
   position: absolute;
   width: 0;
   border-width: 10px;
   border-bottom-color: #FA283D;
-  top: -20px;
 }
 
 

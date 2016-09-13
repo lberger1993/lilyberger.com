@@ -1,5 +1,5 @@
   var w = 1000;
-  var h = 500;
+  var h = 400;
 
   var svg = d3.selectAll(".svg")
     //.selectAll("svg")
@@ -9,69 +9,62 @@
     .attr("class", "svg");
 
   var taskArray = [{
-      task: "conceptualize",
-      type: "development",
-      startTime: "2013-1-28", //year/month/day
-      endTime: "2013-2-1",
-      details: "This actually didn't take any conceptualization"
+      task: "Tuft University",
+      type: "Bachelor of Science",
+      startTime: "2010-1-28", //year/month/day
+      endTime: "2014-2-1",
+      details: "Details details detail"
     },
 
     {
-      task: "sketch",
-      type: "development",
-      startTime: "2013-2-1",
-      endTime: "2013-2-6",
-      details: "No sketching either, really"
-    },
-
-    {
-      task: "color profiles",
-      type: "development",
-      startTime: "2013-2-6",
-      endTime: "2013-2-9"
-    },
-
-    {
-      task: "HTML",
+      task: "Harvard University",
       type: "coding",
-      startTime: "2013-2-2",
-      endTime: "2013-2-6",
+      startTime: "2011-2-2",
+      endTime: "2014-2-6",
       details: "all three lines of it"
     },
 
     {
-      task: "write the JS",
-      type: "coding",
-      startTime: "2013-2-6",
-      endTime: "2013-2-9"
+      task: "Athena Health",
+      type: "promotion",
+      startTime: "2014-2-6",
+      endTime: "2015-2-9"
     },
 
     {
-      task: "advertise",
-      type: "promotion",
-      startTime: "2013-2-9",
-      endTime: "2013-2-12",
+      task: "Denver",
+      type: "festivity",
+      startTime: "2015-2-9",
+      endTime: "2016-07-12",
       details: "This counts, right?"
     },
-
     {
-      task: "spam links",
-      type: "promotion",
-      startTime: "2013-2-12",
-      endTime: "2013-2-14"
-    }, {
-      task: "eat",
+      task: "Denver Health Clinic",
+      type: "festivity",
+      startTime: "2015-6-9",
+      endTime: "2016-07-12",
+      details: "This counts, right?"
+    },
+    {
+      task: "Volunteering",
       type: "celebration",
+      startTime: "2010-2-8",
+      endTime: "2015-2-13",
+      details: "All the things"
+    },
+    {
+      task: "Other activity",
+      type: "blah",
       startTime: "2013-2-8",
-      endTime: "2013-2-13",
+      endTime: "2014-2-13",
       details: "All the things"
     },
 
     {
-      task: "crying",
-      type: "celebration",
-      startTime: "2013-2-13",
-      endTime: "2013-2-16"
+      task: "Nursing?",
+      type: "other type",
+      startTime: "2016-2-13",
+      endTime: "2018-2-16"
     },
 
   ];
@@ -98,6 +91,8 @@
 
   categories = checkUnique(categories);
 
+ 
+
   makeGant(taskArray, w, h);
 
   var title = svg.append("text")
@@ -105,24 +100,25 @@
     .attr("x", w / 2)
     .attr("y", 25)
     .attr("text-anchor", "middle")
-    .attr("font-size", 10)
+    .attr("font-size", 13)
     .attr("fill", "#009FFC");
 
   function makeGant(tasks, pageWidth, pageHeight) {
 
-    var barHeight = 20;
-    var gap = barHeight + 4;
-    var topPadding = 75;
-    var sidePadding = 75;
+    var barHeight = 30;
+    var gap = barHeight + 10;
+    var topPadding = 35;
+    var sidePadding = 130;
 
+    //mess around here with the color scale
     var colorScale = d3.scale.linear()
       .domain([0, categories.length])
-      .range(["#00B9FA", "#F95002"])
+      .range(["#00B9FA", "#BE90D4"])
       .interpolate(d3.interpolateHcl);
 
-    makeGrid(sidePadding, topPadding, pageWidth, pageHeight);
+    //makeGrid(sidePadding, topPadding, pageWidth, pageHeight);
     drawRects(tasks, gap, topPadding, sidePadding, barHeight, colorScale, pageWidth, pageHeight);
-    //vertLabels(gap, topPadding, sidePadding, barHeight, colorScale);
+    
 
   }
 
@@ -188,7 +184,7 @@
       .attr("y", function(d, i) {
         return i * theGap + 14 + theTopPad;
       })
-      .attr("font-size", 11)
+      .attr("font-size", 9)
       .attr("text-anchor", "middle")
       .attr("text-height", theBarHeight)
       .attr("fill", "#fff");
@@ -198,13 +194,14 @@
       var tag = "";
 
       if (d3.select(this).data()[0].details != undefined) {
-        tag = "Task: " + d3.select(this).data()[0].task + "<br/>" +
+        tag = "" + d3.select(this).data()[0].task + "<br/>" +
           "Type: " + d3.select(this).data()[0].type + "<br/>" +
           "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
           "Ends: " + d3.select(this).data()[0].endTime + "<br/>" +
           "Details: " + d3.select(this).data()[0].details;
+          console.log(tag);
       } else {
-        tag = "Task: " + d3.select(this).data()[0].task + "<br/>" +
+        tag = "" + d3.select(this).data()[0].task + "<br/>" +
           "Type: " + d3.select(this).data()[0].type + "<br/>" +
           "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
           "Ends: " + d3.select(this).data()[0].endTime;
@@ -228,21 +225,23 @@
       var tag = "";
 
       if (d3.select(this).data()[0].details != undefined) {
-        tag = "Task: " + d3.select(this).data()[0].task + "<br/>" +
-          "Type: " + d3.select(this).data()[0].type + "<br/>" +
-          "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
-          "Ends: " + d3.select(this).data()[0].endTime + "<br/>" +
-          "Details: " + d3.select(this).data()[0].details;
+        tag = "<div id ='title'> Title </div>" + d3.select(this).data()[0].task + "<br/>" +
+          "Details: " + d3.select(this).data()[0].details + 
+          "Dates" + d3.select(this).data()[0].startTime + d3.select(this).data()[0].endTime;
+          ;
       } else {
-        tag = "Task: " + d3.select(this).data()[0].task + "<br/>" +
+        tag = " " + d3.select(this).data()[0].task + "<br/>" +
           "Type: " + d3.select(this).data()[0].type + "<br/>" +
           "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
           "Ends: " + d3.select(this).data()[0].endTime;
       }
       var output = document.getElementById("tag");
 
-      var x = (this.x.animVal.value + this.width.animVal.value / 2) + "px";
-      var y = this.y.animVal.value + 25 + "px";
+      var x = (this.width.animVal.value / 2) + "px";
+      var y = (this.y.animVal.value / 2) + "px";
+
+      console.log("This is the x", x);
+      console.log("This is the y", y);
 
       output.innerHTML = tag;
       output.style.top = y;
@@ -310,9 +309,10 @@
           return d[1] * theGap / 2 + theTopPad;
         }
       })
-      .attr("font-size", 11)
+      .attr("font-size", 13)
       .attr("text-anchor", "start")
-      .attr("text-height", 14)
+      .attr("text-height", 20)
+      .attr("width", 30)
       .attr("fill", function(d) {
         for (var i = 0; i < categories.length; i++) {
           if (d[0] == categories[i]) {

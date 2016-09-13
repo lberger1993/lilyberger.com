@@ -1,5 +1,20 @@
+  
+
+
   var w = 1000;
   var h = 400;
+  var margin = {};
+
+ function updateDimensions(winWidth) {
+    console.log(winWidth);
+    margin.top = 20;
+    margin.right = 50;
+    margin.left = 50;
+    margin.bottom = 50;
+
+    w = winWidth - margin.left - margin.right;
+    h = 500 - margin.top - margin.bottom;
+  }
 
   var svg = d3.selectAll(".svg")
     //.selectAll("svg")
@@ -92,6 +107,7 @@
   categories = checkUnique(categories);
 
  
+  updateDimensions(window.innerWidth);
 
   makeGant(taskArray, w, h);
 
@@ -115,7 +131,7 @@
       .domain([0, categories.length])
       .range(["#00B9FA", "#BE90D4"])
       .interpolate(d3.interpolateHcl);
-
+    updateDimensions(window.innerWidth); 
     makeGrid(sidePadding, topPadding, pageWidth, pageHeight);
     drawRects(tasks, gap, topPadding, sidePadding, barHeight, colorScale, pageWidth, pageHeight);
     
@@ -123,7 +139,7 @@
   }
 
   function drawRects(theArray, theGap, theTopPad, theSidePad, theBarHeight, theColorScale, w, h) {
-
+    updateDimensions(window.innerWidth);
     var bigRects = svg.append("g")
       .selectAll("rect")
       .data(theArray)

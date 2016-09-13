@@ -10,7 +10,7 @@
 
   var taskArray = [{
       task: "Tuft University",
-      type: "Bachelor of Science",
+      type: "Undergraduate",
       startTime: "2010-1-28", //year/month/day
       endTime: "2014-2-1",
       details: "Details details detail"
@@ -18,7 +18,7 @@
 
     {
       task: "Harvard University",
-      type: "coding",
+      type: "Research",
       startTime: "2011-2-2",
       endTime: "2014-2-6",
       details: "all three lines of it"
@@ -26,14 +26,14 @@
 
     {
       task: "Athena Health",
-      type: "promotion",
+      type: "Professional",
       startTime: "2014-2-6",
       endTime: "2015-2-9"
     },
 
     {
       task: "Denver",
-      type: "festivity",
+      type: "Professional",
       startTime: "2015-2-9",
       endTime: "2016-07-12",
       details: "This counts, right?"
@@ -116,7 +116,7 @@
       .range(["#00B9FA", "#BE90D4"])
       .interpolate(d3.interpolateHcl);
 
-    //makeGrid(sidePadding, topPadding, pageWidth, pageHeight);
+    makeGrid(sidePadding, topPadding, pageWidth, pageHeight);
     drawRects(tasks, gap, topPadding, sidePadding, barHeight, colorScale, pageWidth, pageHeight);
     
 
@@ -194,22 +194,25 @@
       var tag = "";
 
       if (d3.select(this).data()[0].details != undefined) {
-        tag = "" + d3.select(this).data()[0].task + "<br/>" +
-          "Type: " + d3.select(this).data()[0].type + "<br/>" +
-          "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
-          "Ends: " + d3.select(this).data()[0].endTime + "<br/>" +
-          "Details: " + d3.select(this).data()[0].details;
+        tag = 
+          "" + d3.select(this).data()[0].task + "<br/>" +
+          "" + d3.select(this).data()[0].type + "<br/>" +
+          "" + d3.select(this).data()[0].details + "<br/>"+
+          "" + d3.select(this).data()[0].startTime + 
+           d3.select(this).data()[0].endTime + "<br/>" ;
           console.log(tag);
       } else {
-        tag = "" + d3.select(this).data()[0].task + "<br/>" +
-          "Type: " + d3.select(this).data()[0].type + "<br/>" +
-          "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
-          "Ends: " + d3.select(this).data()[0].endTime;
+        tag =  "" + d3.select(this).data()[0].task + "<br/>" +
+          "" + d3.select(this).data()[0].type + "<br/>" +
+          "" + d3.select(this).data()[0].details + "<br/>"+
+          "" + d3.select(this).data()[0].startTime + 
+           d3.select(this).data()[0].endTime + "<br/>" ;
+          console.log(tag);
       }
       var output = document.getElementById("tag");
 
       var x = this.x.animVal.getItem(this) + "px";
-      var y = this.y.animVal.getItem(this) + 25 + "px";
+      var y = this.y.animVal.getItem(this) +  "px";
 
       output.innerHTML = tag;
       output.style.top = y;
@@ -223,22 +226,25 @@
     innerRects.on('mouseover', function(e) {
       //console.log(this);
       var tag = "";
-
-      if (d3.select(this).data()[0].details != undefined) {
-        tag = "<div id ='title'> Title </div>" + d3.select(this).data()[0].task + "<br/>" +
-          "Details: " + d3.select(this).data()[0].details + 
-          "Dates" + d3.select(this).data()[0].startTime + d3.select(this).data()[0].endTime;
-          ;
+        if (d3.select(this).data()[0].details != undefined) {
+         tag =  "" + d3.select(this).data()[0].task + "<br/>" +
+          "" + d3.select(this).data()[0].type + "<br/>" +
+          "" + d3.select(this).data()[0].details + "<br/>"+
+          "" + d3.select(this).data()[0].startTime + 
+          d3.select(this).data()[0].endTime + "<br/>" ;
+          console.log(tag);
       } else {
-        tag = " " + d3.select(this).data()[0].task + "<br/>" +
-          "Type: " + d3.select(this).data()[0].type + "<br/>" +
-          "Starts: " + d3.select(this).data()[0].startTime + "<br/>" +
-          "Ends: " + d3.select(this).data()[0].endTime;
+        tag =  "" + d3.select(this).data()[0].task + "<br/>" +
+          "" + d3.select(this).data()[0].type + "<br/>" +
+          "" + d3.select(this).data()[0].details + "<br/>"+
+          "" + d3.select(this).data()[0].startTime + 
+          d3.select(this).data()[0].endTime + "<br/>" ;
+          console.log(tag);
       }
       var output = document.getElementById("tag");
 
-      var x = (this.width.animVal.value / 2) + "px";
-      var y = (this.y.animVal.value / 2) + "px";
+      var x = 0 + "px";
+      var y = 0 + "px";
 
       console.log("This is the x", x);
       console.log("This is the y", y);
@@ -260,14 +266,15 @@
     console.log("This is the sidePag", theSidePad);
     console.log("width", w );
     console.log("height", h);
+    var theSidePad = 35;
 
     var xAxis = d3.svg.axis()
       .scale(timeScale)
       .orient('bottom')
-      .ticks(d3.time.days, 1)
+      .ticks(d3.time.years, 1)
 
       .tickSize(-h + theTopPad + 50, 0, 0)
-      .tickFormat(d3.time.format('%d %b'));
+      .tickFormat(d3.time.format("20" + '%y'));
 
     var grid = svg.append('g')
       .attr('class', 'grid')
@@ -275,7 +282,7 @@
       .call(xAxis)
       .selectAll("text")
       .style("text-anchor", "middle")
-      .attr("fill", "#000")
+      .attr("fill", "rgba(0,0,0,0.54)")
       .attr("stroke", "none")
       .attr("font-size", 10)
       .attr("dy", "1em");
